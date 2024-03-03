@@ -28,3 +28,14 @@ jobs:
     - name: Install dependencies
       run: npm install
     - run: npm run test
+    - name: Deploy to Server
+      if: success()
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+        port: ${{ secrets.EC2_PORT }} 
+        script: |
+          cd /apps/CDS-First-Rest-Api
+          docker-compose up -d

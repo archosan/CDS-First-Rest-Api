@@ -22,15 +22,14 @@ async function bootstrap() {
 
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, // Sadece dekoratörlerle süslenmiş özelliklere izin ver
-      forbidNonWhitelisted: true, // Tanımlanmamış özellikleri reddet
-      transform: true, // İstekleri DTO sınıflarının örneklerine dönüştür
-      disableErrorMessages: false, // Hata mesajlarını devre dışı bırak
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+      disableErrorMessages: false,
     }),
   );
 
   await app.listen(3000);
 }
 
-//AppClusterService.clusterize(bootstrap);
-bootstrap();
+AppClusterService.clusterize(bootstrap);
